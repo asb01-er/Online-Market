@@ -1,29 +1,93 @@
-# Create T3 App
+# Online Marketplace
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A full-stack marketplace where users can list items for sale, browse what others are selling, and message sellers.
 
-## What's next? How do I make an app with this?
+**Live demo:** coming soon
+**Code:** https://github.com/asb01-er/Online-Market
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Browse all listings on the home page
+- Sign in with Clerk authentication
+- Create listings with a name, description, price and photo
+- Image upload to Cloudinary with a live preview
+- Listing detail pages with an in-app messaging workflow
+- Sellers can read messages sent about their listings
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Tech stack
 
-## Learn More
+| Layer     | Technology                              |
+| --------- | --------------------------------------- |
+| Framework | Next.js 15 (Pages Router), TypeScript   |
+| API       | tRPC with SuperJSON                     |
+| Database  | MongoDB with Prisma                     |
+| Auth      | Clerk                                   |
+| Images    | Cloudinary                              |
+| Styling   | Tailwind CSS                            |
+| Forms     | React Hook Form                         |
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Built from the [T3 Stack](https://create.t3.gg/).
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Getting started
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Prerequisites
 
-## How do I deploy this?
+- Node.js 18+
+- A MongoDB database (MongoDB Atlas works well)
+- A [Clerk](https://clerk.com) application
+- A [Cloudinary](https://cloudinary.com) account with an unsigned upload preset
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+### 1. Clone and install
+
+```bash
+git clone https://github.com/asb01-er/Online-Market.git
+cd Online-Market
+npm install
+```
+
+### 2. Configure environment variables
+
+Create a `.env` file in the project root:
+
+```env
+DATABASE_URL="mongodb+srv://<user>:<password>@<cluster>.mongodb.net/online-market"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+UPLOAD_PRESET=your_upload_preset
+```
+
+Never commit `.env`. The variables are validated in `src/env.js`, so a missing one stops the build.
+
+### 3. Set up the database
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+### 4. Run the app
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000. The sell page is at `/sell-an-item`.
+
+## Scripts
+
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `npm run dev`     | Start the development server   |
+| `npm run build`   | Create a production build      |
+| `npm start`       | Run the production build       |
+
+## Deployment
+
+Deploys as a Render Web Service. Use `npm install && npx prisma generate && npm run build` as the build command and `npm start` as the start command, set the environment variables above, and allow Render's connection in MongoDB Atlas Network Access. Add the deployed URL to Clerk's allowed origins.
+
+## Author
+
+**Ernest Ekelem** — [GitHub](https://github.com/asb01-er) · [LinkedIn](https://www.linkedin.com/in/ernest-ekelem-5a771735a)
